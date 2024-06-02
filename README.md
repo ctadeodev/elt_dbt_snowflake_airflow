@@ -352,7 +352,7 @@ Now open the Airflow webserver at http://localhost:8080/. After logging in, we s
 
 __Before we start the DAG, configure the snowflake connection first by going to Admin > Connections. Click + to add a new connection:__
 ![Add snowflake connection](res/snowflake_conn.png?raw=true)
-Make sure to fill up the Snowflake Login, Password, and Account. Account can be found in your Snowflake accounts dashboard (https://\<this_value>.snowflakecomputing.com)
+Make sure to fill up the your own Snowflake Login, Password, and Account. Account can be found in your Snowflake accounts dashboard (https://\<this_value>.snowflakecomputing.com)
 
 After setting the connection. We should now be able to run the `dbt_dag` DAG.
 ![dbt_dag successful run](res/dbt_dag_success.png?raw=true)
