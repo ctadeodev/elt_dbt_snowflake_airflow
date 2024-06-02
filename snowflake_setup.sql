@@ -9,8 +9,7 @@ create role if not exists  dbt_role;
 grant usage on warehouse dbt_wh to role dbt_role;
 
 -- select current_user();
--- replace 'ctadeo' with your user
-grant role dbt_role to user ctadeo;
+grant role dbt_role to user <Snowflake username>;
 grant all on database dbt_db to role dbt_role;
 
 use role dbt_role;
