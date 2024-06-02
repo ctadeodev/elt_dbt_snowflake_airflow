@@ -14,4 +14,3 @@ join
 on orders.order_key = line_item.order_key
 order by
     orders.order_date
-
