@@ -100,7 +100,7 @@ data_pipeline
 
 ## 3. Building the data model
 We will be using the orders and lineitem table from the __TPCH_SF1__ Snowflake sample data to build our orders data model.
-![alt text](res/data-model.png?raw=true)
+![data model](res/data-model.png?raw=true)
 
 Update dbt_project.yml:
 ```yaml
@@ -294,3 +294,65 @@ $ dbt build  # run tests and create views/tables
 ---
 
 ## 4. Orchestrating using Airflow
+Setup astronomer-cosmos to run on Astro in local execution mode. It's recommended to use a virtual environment because dbt and Airflow can have conflicting dependencies. Let's add this to the generated `Dockerfile` file.
+```yaml
+FROM quay.io/astronomer/astro-runtime:11.4.0
+
+# install dbt into a virtual environment
+RUN python -m venv dbt_venv && source dbt_venv/bin/activate && \
+    pip install --no-cache-dir dbt-snowflake && deactivate
+```
+To instll cosmos and Airflow Snowflake providers, add the following to our `requirements.txt`:
+```
+astronomer-cosmos
+apache-airflow-providers-snowflake
+```
+Setup DAG file `dags/dbt/dbt_dag.py`:
+```python
+import os
+from datetime import datetime
+
+from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig
+from cosmos.profiles import SnowflakeUserPasswordProfileMapping
+
+profile_config = ProfileConfig(
+    profile_name='default',
+    target_name='dev',
+    profile_mapping=SnowflakeUserPasswordProfileMapping(
+        conn_id='snowflake_conn',
+        profile_args={'database': 'dbt_db', 'schema': 'dbt_schema'}
+    )
+)
+
+dbt_snowflake_dag = DbtDag(
+    project_config=ProjectConfig('/usr/local/airflow/dags/dbt/data_pipeline',),
+    operator_args={'install_deps': True},
+    profile_config=profile_config,
+    execution_config=ExecutionConfig(dbt_executable_path=f"{os.environ['AIRFLOW_HOME']}/dbt_venv/bin/dbt",),
+    schedule_interval='@daily',
+    start_date=datetime(2024, 6, 1),
+    catchup=False,
+    dag_id='dbt_dag'
+)
+```
+we can now start the Airflow instance by running:
+```bash
+$ astro dev start
+```
+A successful start should show the following:
+```bash
+Airflow Webserver: http://localhost:8080
+Postgres Database: localhost:5432/postgres
+The default Airflow UI credentials are: admin:admin
+The default Postgres DB credentials are: postgres:postgres
+```
+
+Now open the Airflow webserver at http://localhost:8080/. After logging in, we should now be able to see our dbt_dag DAG in the webserver home.
+![Airflow webserver home](res/dag.png?raw=true)
+
+__Before we start the DAG, configure the snowflake connection first by going to Admin > Connections. Click + to add a new connection:__
+![Add snowflake connection](res/snowflake_conn.png?raw=true)
+Make sure to fill up the Snowflake Login, Password, and Account. Account can be found in your Snowflake accounts dashboard (https://\<this_value>.snowflakecomputing.com)
+
+After setting the connection. We should now be able to run the `dbt_dag` DAG.
+![dbt_dag successful run](res/dbt_dag_success.png?raw=true)

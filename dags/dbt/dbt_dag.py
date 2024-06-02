@@ -1,4 +1,3 @@
-from ast import operator
 import os
 from datetime import datetime
 
