@@ -302,7 +302,7 @@ FROM quay.io/astronomer/astro-runtime:11.4.0
 RUN python -m venv dbt_venv && source dbt_venv/bin/activate && \
     pip install --no-cache-dir dbt-snowflake && deactivate
 ```
-To instll cosmos and Airflow Snowflake providers, add the following to our `requirements.txt`:
+To install cosmos and Airflow Snowflake providers, add the following to our `requirements.txt`:
 ```
 astronomer-cosmos
 apache-airflow-providers-snowflake
