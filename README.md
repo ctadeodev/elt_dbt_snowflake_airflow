@@ -4,9 +4,9 @@ This project demonstrates how to build a simple ELT pipeline that uses dbt for b
 
 
 ## Table of contents
-[1. Snowflake setup](#snowflake_setup)
-[2. Building our data model](#building_our_data_model)
-[3. Orchestrating using Airflow](#orchestrating_using_airflow)
+[1. Snowflake setup](#snowflake_setup)  
+[2. Building our data model](#building_our_data_model)  
+[3. Orchestrating using Airflow](#orchestrating_using_airflow)  
 
 ### Snowflake setup
 We will be using Snowflake for our data warehouse and the source data will be Snowflake's sample data, TPCH_SF1.
@@ -29,3 +29,7 @@ grant all on database dbt_db to role dbt_role;
 use role dbt_role;
 create schema if not exists dbt_db.dbt_schema;
 ```
+
+### Building our data model
+We will be using the orders and lineitem data from the TPCH_SF1 Snowflake sample data to build our orders data model.
+![alt text](res/data-model.png?raw=true)
