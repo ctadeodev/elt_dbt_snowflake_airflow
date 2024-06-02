@@ -14,7 +14,7 @@ This project demonstrates how to build a simple ELT pipeline that uses [dbt(Data
 We will be using Snowflake for our data warehouse and the source data will be Snowflake's sample data, TPCH_SF1. 
 
 #### Setup access control
-For access control, we will use Snowflake's RBAC (Role-based Access Control). Access privileges are assigned to role dbt_role, which is in turn assigned to our user <Snowflake username>.
+For access control, we will use Snowflake's RBAC (Role-based Access Control). Access privileges are assigned to role dbt_role, which is in turn assigned to our user \<Snowflake username\>.
 
 ```sql
 use role accountadmin;
