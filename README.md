@@ -3,10 +3,10 @@
 This project demonstrates how to build a simple ELT pipeline that uses [dbt(Data Build Tool)](#https://www.getdbt.com/) for building a data model in [Snowflake](#https://www.snowflake.com/en/) and is orchestrated using [Apache Airflow](#https://airflow.apache.org/). This follows the [tutorial](https://www.youtube.com/watch?v=OLXkGB7krGo&t=71s) shared by [jayzern](https://www.youtube.com/@jayzern).
 
 ## Table of contents
-[1. Snowflake setup](#snowflake_setup)  
-[2. dbt project setup](#dbt_project_setup)  
-[3. Building our data model](#building_our_data_model)  
-[4. Orchestrating using Airflow](#orchestrating_using_airflow)  
+[1. Snowflake setup](#1-snowflake-setup)  
+[2. dbt project setup](#2-dbt-project-setup)  
+[3. Building our data model](#3-building-the-data-model)  
+[4. Orchestrating using Airflow](#4-orchestrating-using-airflow)  
 
 ---
 
@@ -98,7 +98,7 @@ data_pipeline
 
 ---
 
-## 3. Building our data model
+## 3. Building the data model
 We will be using the orders and lineitem table from the __TPCH_SF1__ Snowflake sample data to build our orders data model.
 ![alt text](res/data-model.png?raw=true)
 
