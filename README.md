@@ -307,13 +307,14 @@ To install cosmos and Airflow Snowflake providers, add the following to our `req
 astronomer-cosmos
 apache-airflow-providers-snowflake
 ```
-Setup DAG file `dags/dbt/dbt_dag.py`:
+Setup DAG file `dags/dbt/dbt_dag.py`. Notice how we set our test_behavior for our RenderConfig to __AFTER_ALL__. This is necessary to avoid failing tests for stg_tpch_orders model due to downstream dependency (dbt test will not build the models downstream)
 ```python
 import os
 from datetime import datetime
 
-from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig
+from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig, RenderConfig
 from cosmos.profiles import SnowflakeUserPasswordProfileMapping
+from cosmos.constants import TestBehavior
 
 profile_config = ProfileConfig(
     profile_name='default',
@@ -329,6 +330,7 @@ dbt_snowflake_dag = DbtDag(
     operator_args={'install_deps': True},
     profile_config=profile_config,
     execution_config=ExecutionConfig(dbt_executable_path=f"{os.environ['AIRFLOW_HOME']}/dbt_venv/bin/dbt",),
+    render_config=RenderConfig(test_behavior=TestBehavior.AFTER_ALL),
     schedule_interval='@daily',
     start_date=datetime(2024, 6, 1),
     catchup=False,

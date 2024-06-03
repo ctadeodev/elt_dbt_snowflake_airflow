@@ -1,8 +1,9 @@
 import os
 from datetime import datetime
 
-from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig
+from cosmos import DbtDag, ProjectConfig, ProfileConfig, ExecutionConfig, RenderConfig
 from cosmos.profiles import SnowflakeUserPasswordProfileMapping
+from cosmos.constants import TestBehavior
 
 profile_config = ProfileConfig(
     profile_name='default',
@@ -18,6 +19,7 @@ dbt_snowflake_dag = DbtDag(
     operator_args={'install_deps': True},
     profile_config=profile_config,
     execution_config=ExecutionConfig(dbt_executable_path=f"{os.environ['AIRFLOW_HOME']}/dbt_venv/bin/dbt",),
+    render_config=RenderConfig(test_behavior=TestBehavior.AFTER_ALL),
     schedule_interval='@daily',
     start_date=datetime(2024, 6, 1),
     catchup=False,
