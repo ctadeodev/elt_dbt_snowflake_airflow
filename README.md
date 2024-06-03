@@ -1,6 +1,6 @@
 # ELT Pipeline using dbt, Snowflake, and Airflow
 
-This project demonstrates how to build a simple ELT pipeline that uses [dbt(Data Build Tool)](#https://www.getdbt.com/) for building a data model in [Snowflake](#https://www.snowflake.com/en/) and is orchestrated using [Apache Airflow](#https://airflow.apache.org/). This follows the [tutorial](https://www.youtube.com/watch?v=OLXkGB7krGo&t=71s) shared by [jayzern](https://www.youtube.com/@jayzern).
+This project demonstrates how to build a simple ELT pipeline that uses [dbt(Data Build Tool)](#https://www.getdbt.com/) for building a data model in [Snowflake](#https://www.snowflake.com/en/) and is orchestrated using [Apache Airflow](#https://airflow.apache.org/).
 
 ## Table of contents
 [1. Snowflake setup](#1-snowflake-setup)  
@@ -307,7 +307,7 @@ To install cosmos and Airflow Snowflake providers, add the following to our `req
 astronomer-cosmos
 apache-airflow-providers-snowflake
 ```
-Setup DAG file `dags/dbt/dbt_dag.py`. Notice how we set our test_behavior for our RenderConfig to __AFTER_ALL__. This is necessary to avoid failing tests for stg_tpch_orders model due to downstream dependency (dbt test will not build the models downstream)
+Setup DAG file `dags/dbt/dbt_dag.py`. Notice how we set our test_behavior for our render_config to __AFTER_ALL__. This is necessary to avoid failing tests for stg_tpch_orders model due to downstream dependency (dbt test will not build the models downstream)
 ```python
 import os
 from datetime import datetime
@@ -354,7 +354,7 @@ Now open the Airflow webserver at http://localhost:8080/. After logging in, we s
 
 __Before we start the DAG, configure the snowflake connection first by going to Admin > Connections. Click + to add a new connection:__
 ![Add snowflake connection](res/snowflake_conn.png?raw=true)
-Make sure to fill up the your own Snowflake Login, Password, and Account. Account can be found in your Snowflake accounts dashboard (https://\<this_value>.snowflakecomputing.com)
+Make sure to fill up the your own Snowflake Login, Password, and Account. Account can be found in your Snowflake accounts dashboard (https://\<__this_value__>.snowflakecomputing.com)
 
 After setting the connection. We should now be able to run the `dbt_dag` DAG.
 ![dbt_dag successful run](res/dbt_dag_success.png?raw=true)
