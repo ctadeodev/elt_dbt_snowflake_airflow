@@ -47,10 +47,10 @@ this will generate a basic astro project directory:
 ```
 elt_project 
 ├── dags
-│   ├── exampledag.py
+│   └── exampledag.py
 ├── tests
-│   ├── dags
-│       ├── test_dag_example.py
+│   └── dags
+│       └── test_dag_example.py
 ├── Dockerfile
 ├── include
 ├── packages.txt
@@ -84,10 +84,10 @@ data_pipeline
 ├── analyses
 ├── macros
 ├── models
-│   ├── example
+│   └── example
 │       ├── my_first_dbt_model.sql
 │       ├── my_second_dbt_model.sql
-│       ├── schema.yml
+│       └── schema.yml
 ├── seeds
 ├── snapshots
 ├── tests
@@ -127,20 +127,20 @@ Remove the sample models and create the needed sources, models, macros, and test
 ```
 data_pipeline
 ├── macros
-│   ├── pricing.sql
+│   └── pricing.sql
 ├── models
 │   ├── marts
-│       ├── dim_order_items_summary.sql
-│       ├── dim_order_items.sql
-│       ├── fct_orders.sql
-│       ├── orders.yml
-│   ├── staging
+│   │   ├── dim_order_items_summary.sql
+│   │   ├── dim_order_items.sql
+│   │   ├── fct_orders.sql
+│   │   └── orders.yml
+│   └── staging
 │       ├── stg_tpch_line_item.sql
 │       ├── stg_tpch_orders.sql
-│       ├── tpch_sources.yml
-├── tests
-│   ├── fct_orders_date_valid.sql
-│   ├── fct_orders_discount.sql
+│       └── tpch_sources.yml
+└── tests
+    ├── fct_orders_date_valid.sql
+    └── fct_orders_discount.sql
 ```
 The `models/staging/tpch_sources.yml` will contain details about our sources. For this project, we will only use TPCH_SF1 *orders* and *lineitem* tables. We will also specify some generic tests for our sources here
 ```yaml
