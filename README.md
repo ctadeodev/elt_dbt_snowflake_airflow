@@ -1,4 +1,4 @@
-## Table of contents
+### Table of contents
 - [ELT Pipeline using dbt, Snowflake, and Airflow](#elt-pipeline-using-dbt-snowflake-and-airflow)
   - [1. Snowflake setup](#1-snowflake-setup)
       - [Setup access control](#setup-access-control)
