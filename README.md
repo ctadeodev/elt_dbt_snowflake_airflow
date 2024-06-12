@@ -92,7 +92,7 @@ data_pipeline
 ├── snapshots
 ├── tests
 ├── .gitignore
-└── dbt_project.yml
+├── dbt_project.yml
 └── README.md
 ```
 
