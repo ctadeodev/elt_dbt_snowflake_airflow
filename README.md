@@ -1,14 +1,17 @@
+## Table of contents
+- [ELT Pipeline using dbt, Snowflake, and Airflow](#elt-pipeline-using-dbt-snowflake-and-airflow)
+  - [1. Snowflake setup](#1-snowflake-setup)
+      - [Setup access control](#setup-access-control)
+      - [Setup warehouse and database](#setup-warehouse-and-database)
+  - [2. dbt project setup](#2-dbt-project-setup)
+  - [3. Building the data model](#3-building-the-data-model)
+  - [4. Orchestrating using Airflow](#4-orchestrating-using-airflow)
+
+
 # ELT Pipeline using dbt, Snowflake, and Airflow
 
 This project demonstrates how to build a simple ELT pipeline that uses [dbt(Data Build Tool)](#https://www.getdbt.com/) for building a data model in [Snowflake](#https://www.snowflake.com/en/) and is orchestrated using [Apache Airflow](#https://airflow.apache.org/).
 
-## Table of contents
-[1. Snowflake setup](#1-snowflake-setup)  
-[2. dbt project setup](#2-dbt-project-setup)  
-[3. Building our data model](#3-building-the-data-model)  
-[4. Orchestrating using Airflow](#4-orchestrating-using-airflow)  
-
----
 
 ## 1. Snowflake setup
 We will be using Snowflake for our data warehouse and the source data will be Snowflake's sample data, TPCH_SF1. 
@@ -356,5 +359,5 @@ __Before we start the DAG, configure the snowflake connection first by going to 
 ![Add snowflake connection](res/snowflake_conn.png?raw=true)
 Make sure to fill up the your own Snowflake Login, Password, and Account. Account can be found in your Snowflake accounts dashboard (https://\<__this_value__>.snowflakecomputing.com)
 
-After setting the connection. We should now be able to run the `dbt_dag` DAG.
+After setting the connection. We should now be able to run the `dbt_dag` DAG.  
 ![dbt_dag successful run](res/dbt_dag_success.png?raw=true)
